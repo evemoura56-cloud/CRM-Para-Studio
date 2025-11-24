@@ -1,0 +1,121 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #0C0C0D;
+  color: #E6E6E6;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+}
+
+/* Neon glow effects */
+.neon-text {
+  color: #FF0000;
+  text-shadow: 
+    0 0 10px rgba(255, 0, 0, 0.8),
+    0 0 20px rgba(255, 0, 0, 0.4);
+}
+
+.neon-text-strong {
+  color: #FF0000;
+  text-shadow: 
+    0 0 5px #FF0000,
+    0 0 10px #FF0000,
+    0 0 20px #FF0000,
+    0 0 40px #FF0000;
+}
+
+.neon-border {
+  border: 2px solid #FF0000;
+  box-shadow: 
+    0 0 5px #FF0000,
+    0 0 10px #FF0000,
+    inset 0 0 5px #FF0000;
+}
+
+.neon-glow {
+  filter: drop-shadow(0 0 5px #FF0000) drop-shadow(0 0 10px #FF0000);
+}
+
+.neon-button {
+  @apply bg-transparent border-2 border-neon-red text-neon-red font-semibold py-2 px-6 rounded transition-all duration-300;
+  box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+}
+
+.neon-button:hover {
+  @apply bg-neon-red text-dark-bg;
+  box-shadow: 0 0 18px #FF0000, 0 0 30px #FF0000;
+  transform: scale(1.05);
+}
+
+/* Scrollbar customizado */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0C0C0D;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #343434;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #FF0000;
+  box-shadow: 0 0 10px #FF0000;
+}
+
+/* Card styles */
+.card-neon {
+  @apply bg-charcoal-gray border border-neon-red rounded-lg p-4 transition-all duration-300;
+  box-shadow: 0 0 5px rgba(255, 0, 0, 0.2);
+}
+
+.card-neon:hover {
+  box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+  transform: translateY(-2px);
+}
+
+/* Input styles */
+.input-neon {
+  @apply bg-dark-bg border border-charcoal-gray text-ice-gray px-4 py-2 rounded focus:outline-none focus:border-neon-red transition-all duration-300;
+}
+
+.input-neon:focus {
+  box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+}
+
+/* Animations */
+@keyframes flicker {
+  0%, 19.999%, 22%, 62.999%, 64%, 64.999%, 70%, 100% {
+    opacity: 1;
+    text-shadow: 
+      0 0 5px #FF0000,
+      0 0 10px #FF0000,
+      0 0 20px #FF0000,
+      0 0 40px #FF0000;
+  }
+  20%, 21.999%, 63%, 63.999%, 65%, 69.999% {
+    opacity: 0.4;
+    text-shadow: none;
+  }
+}
+
+.animate-flicker {
+  animation: flicker 3s linear infinite;
+}
