@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import SkullLogo from '../components/SkullLogo';
 
-const Login = ({ onLogin }) => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+const Login = ({ onLogin, loading, error }) => {
+  const [username, setUsername] = useState('owner@skullking.ink');
+  const [studioSlug, setStudioSlug] = useState('skullking');
+  const [password, setPassword] = useState('inkhouse123');
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Login simples para demo
     if (username && password) {
-      onLogin();
+      onLogin({ email: username, senha: password, studioSlug });
     }
   };
 
@@ -61,6 +61,20 @@ const Login = ({ onLogin }) => {
 
               <div>
                 <label className="block text-ice-gray font-inter mb-2 text-sm">
+                  Estúdio (slug/subdomínio)
+                </label>
+                <input
+                  type="text"
+                  value={studioSlug}
+                  onChange={(e) => setStudioSlug(e.target.value)}
+                  className="input-neon w-full"
+                  placeholder="Ex: skullking"
+                  required
+                />
+              </div>
+
+              <div>
+                <label className="block text-ice-gray font-inter mb-2 text-sm">
                   Senha
                 </label>
                 <input
@@ -78,8 +92,9 @@ const Login = ({ onLogin }) => {
           <button
             type="submit"
             className="neon-button w-full text-lg py-3"
+            disabled={loading}
           >
-            ENTRAR NO SISTEMA
+            {loading ? 'Entrando...' : 'ENTRAR NO SISTEMA'}
           </button>
         </form>
 
@@ -88,6 +103,11 @@ const Login = ({ onLogin }) => {
           <p className="text-xs text-charcoal-gray font-inter">
             Sistema de gerenciamento para estúdios de tatuagem
           </p>
+          {error && (
+            <p className="text-sm text-neon-red font-inter mt-2">
+              {error}
+            </p>
+          )}
         </div>
       </div>
 

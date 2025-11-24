@@ -1,23 +1,25 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { Search, Phone, Mail, Calendar, Star } from 'lucide-react';
 import { mockClients, statusColors } from '../data/mockData';
 import Header from '../components/Header';
 
-const Clientes = () => {
+const Clientes = ({ clients = mockClients, loading = false }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [filterStatus, setFilterStatus] = useState('all');
   const [selectedClient, setSelectedClient] = useState(null);
 
-  const filteredClients = mockClients.filter(client => {
-    const matchesSearch = 
-      client.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      client.style.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      client.email.toLowerCase().includes(searchTerm.toLowerCase());
-    
-    const matchesFilter = filterStatus === 'all' || client.status === filterStatus;
-    
-    return matchesSearch && matchesFilter;
-  });
+  const filteredClients = useMemo(() => {
+    return (clients || []).filter(client => {
+      const matchesSearch = 
+        client.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        client.style.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        client.email.toLowerCase().includes(searchTerm.toLowerCase());
+      
+      const matchesFilter = filterStatus === 'all' || client.status === filterStatus;
+      
+      return matchesSearch && matchesFilter;
+    });
+  }, [clients, searchTerm, filterStatus]);
 
   return (
     <div className="flex-1 flex flex-col h-screen overflow-hidden">
@@ -27,6 +29,9 @@ const Clientes = () => {
       />
 
       <div className="flex-1 overflow-auto p-8">
+        {loading && (
+          <div className="mb-4 text-ice-gray font-inter">Sincronizando clientes...</div>
+        )}
         {/* Filtros e busca */}
         <div className="mb-6 flex gap-4 flex-wrap">
           <div className="flex-1 min-w-[300px]">

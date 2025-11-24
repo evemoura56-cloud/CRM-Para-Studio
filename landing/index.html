@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>INKHOUSE CRM — Landing</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #050506;
+      --card: #202124;
+      --neon: #ff0000;
+      --text: #f5f5f5;
+      --muted: #c4c4c4;
+      --blue: #0A3D62;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: radial-gradient(circle at 20% 20%, rgba(255,0,0,0.08), transparent 25%), var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+    a { color: var(--neon); }
+    .glow { text-shadow: 0 0 12px rgba(255,0,0,0.7); }
+    header {
+      padding: 48px 24px;
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      align-items: center;
+    }
+    .logo {
+      width: 96px;
+      height: 96px;
+      border-radius: 24px;
+      background: radial-gradient(circle, rgba(255,0,0,0.15), rgba(255,0,0,0.05));
+      border: 2px solid rgba(255,0,0,0.4);
+      display: grid;
+      place-items: center;
+      box-shadow: 0 0 18px rgba(255,0,0,0.6);
+    }
+    .skull {
+      width: 72px;
+      height: 72px;
+      position: relative;
+      border: 3px solid var(--neon);
+      border-radius: 18px;
+      box-shadow: 0 0 18px rgba(255,0,0,0.7);
+    }
+    .skull::before, .skull::after {
+      content: '';
+      position: absolute;
+      border: 3px solid var(--neon);
+      border-radius: 50%;
+      width: 14px;
+      height: 14px;
+      top: 18px;
+      box-shadow: 0 0 12px rgba(255,0,0,0.6);
+    }
+    .skull::before { left: 16px; }
+    .skull::after { right: 16px; }
+    .skull .teeth {
+      position: absolute;
+      bottom: 12px;
+      left: 18px;
+      display: flex;
+      gap: 4px;
+    }
+    .skull .teeth span {
+      width: 8px;
+      height: 12px;
+      border: 2px solid var(--neon);
+      box-shadow: 0 0 10px rgba(255,0,0,0.6);
+    }
+    .headline h1 {
+      font-family: 'Poppins', sans-serif;
+      font-size: clamp(32px, 4vw, 48px);
+      margin: 0 0 12px;
+      color: var(--text);
+      letter-spacing: 0.5px;
+    }
+    .headline p {
+      margin: 0 0 24px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+    .cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--neon);
+      color: var(--bg);
+      font-weight: 700;
+      padding: 14px 22px;
+      border-radius: 10px;
+      text-decoration: none;
+      box-shadow: 0 0 18px rgba(255,0,0,0.7);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .cta:hover { transform: translateY(-2px); box-shadow: 0 0 26px rgba(255,0,0,0.9); }
+    .card-grid {
+      max-width: 1100px;
+      margin: 32px auto;
+      padding: 0 24px 48px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 18px;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid rgba(255,0,0,0.4);
+      padding: 18px;
+      border-radius: 14px;
+      box-shadow: 0 0 10px rgba(255,0,0,0.25);
+    }
+    .card h3 { margin: 0 0 8px; font-family: 'Poppins', sans-serif; color: var(--text); }
+    .card p { margin: 0; color: var(--muted); line-height: 1.5; }
+    .plans {
+      max-width: 1100px;
+      margin: 24px auto 48px;
+      padding: 0 24px;
+    }
+    .plan-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+    }
+    .plan {
+      background: var(--card);
+      border: 1px solid rgba(255,0,0,0.4);
+      border-radius: 14px;
+      padding: 18px;
+      box-shadow: 0 0 12px rgba(255,0,0,0.2);
+    }
+    .plan h4 { margin: 0 0 8px; font-family: 'Poppins', sans-serif; }
+    .price { color: var(--neon); font-weight: 700; margin-bottom: 10px; }
+    .plan ul { padding-left: 18px; margin: 0; color: var(--muted); line-height: 1.5; }
+    footer {
+      text-align: center;
+      padding: 32px 16px 48px;
+      color: var(--muted);
+      font-size: 14px;
+      border-top: 1px solid rgba(255,0,0,0.2);
+    }
+    @media (max-width: 800px) {
+      header { grid-template-columns: 1fr; text-align: center; }
+      .logo { margin: 0 auto; }
+      .headline { order: 2; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <div class="skull">
+        <div class="teeth"><span></span><span></span><span></span></div>
+      </div>
+    </div>
+    <div class="headline">
+      <h1 class="glow">INKHOUSE CRM — O cérebro digital do estúdio</h1>
+      <p>"Tatuagens contam histórias. O CRM guarda todas elas." Painel dark neon para organizar clientes, sessões, retornos e VIPs com estética de placa vermelha.</p>
+      <a class="cta" href="#">Começar grátis por 7 dias</a>
+    </div>
+  </header>
+
+  <section class="card-grid">
+    <div class="card">
+      <h3 class="glow">Feito para estúdios reais</h3>
+      <p>Multi-tenant: um painel por estúdio, usuários com papéis (owner, artist, assistant, admin master).</p>
+    </div>
+    <div class="card">
+      <h3 class="glow">Visual Dark Neon</h3>
+      <p>Paleta #050506, bordas e glows em #FF0000, tipografia Poppins/Inter, caveira neon em destaque.</p>
+    </div>
+    <div class="card">
+      <h3 class="glow">Clientes fidelizados</h3>
+      <p>Kanban por status, badges VIP, ranking, retornos urgentes e métricas de receita simulada.</p>
+    </div>
+    <div class="card">
+      <h3 class="glow">Planos simples</h3>
+      <p>Free, Pro e Premium com limites claros, callback de pagamento simulado e trial de 7 dias.</p>
+    </div>
+  </section>
+
+  <section class="plans">
+    <h2 class="glow" style="font-family:'Poppins',sans-serif;">Planos</h2>
+    <div class="plan-grid">
+      <div class="plan">
+        <h4>Free</h4>
+        <div class="price">R$0/mês</div>
+        <ul>
+          <li>Até 15 clientes</li>
+          <li>Neon padrão vermelho</li>
+          <li>Sem exportação</li>
+          <li>Trial 7 dias</li>
+        </ul>
+      </div>
+      <div class="plan">
+        <h4>Pro</h4>
+        <div class="price">R$169/mês</div>
+        <ul>
+          <li>Clientes ilimitados</li>
+          <li>Kanban, retornos, VIP</li>
+          <li>Exportação CSV</li>
+          <li>App mobile</li>
+        </ul>
+      </div>
+      <div class="plan" style="border-color: var(--neon); box-shadow: 0 0 16px rgba(255,0,0,0.6);">
+        <h4>Premium</h4>
+        <div class="price">R$299/mês</div>
+        <ul>
+          <li>Tudo do Pro + PDF</li>
+          <li>Neon custom, brilho e blink</li>
+          <li>Logs e dashboard VIP</li>
+          <li>Suporte prioritário</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    Criado por: <span class="glow">Evelyn Moura — Automação & Processos</span>
+  </footer>
+</body>
+</html>

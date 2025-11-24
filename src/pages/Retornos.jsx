@@ -3,25 +3,23 @@ import { mockClients } from '../data/mockData';
 import Header from '../components/Header';
 import { Calendar, Phone, Mail } from 'lucide-react';
 
-const Retornos = () => {
-  // Filtrar clientes com próximo agendamento
-  const clientsWithAppointments = mockClients
-    .filter(client => client.nextAppointment)
+const Retornos = ({ clients = mockClients }) => {
+  const clientsWithAppointments = (clients || [])
+    .filter((client) => client.nextAppointment)
     .sort((a, b) => new Date(a.nextAppointment) - new Date(b.nextAppointment));
 
   const getDaysUntil = (date) => {
     const today = new Date();
     const appointmentDate = new Date(date);
     const diffTime = appointmentDate - today;
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-    return diffDays;
+    return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
   };
 
   const getUrgencyColor = (days) => {
-    if (days < 0) return 'text-charcoal-gray'; // Passou
-    if (days <= 3) return 'text-neon-red neon-text'; // Urgente
-    if (days <= 7) return 'text-neon-red'; // Próximo
-    return 'text-ice-gray'; // Normal
+    if (days < 0) return 'text-charcoal-gray';
+    if (days <= 3) return 'text-neon-red neon-text';
+    if (days <= 7) return 'text-neon-red';
+    return 'text-ice-gray';
   };
 
   return (
@@ -33,7 +31,7 @@ const Retornos = () => {
 
       <div className="flex-1 overflow-auto p-8">
         <div className="space-y-4">
-          {clientsWithAppointments.map(client => {
+          {clientsWithAppointments.map((client) => {
             const daysUntil = getDaysUntil(client.nextAppointment);
             const urgencyColor = getUrgencyColor(daysUntil);
             
@@ -41,7 +39,6 @@ const Retornos = () => {
               <div key={client.id} className="card-neon">
                 <div className="flex items-start justify-between">
                   <div className="flex-1">
-                    {/* Nome e estilo */}
                     <div className="mb-3">
                       <h3 className="text-ice-gray font-poppins text-xl mb-1">
                         {client.name}
@@ -51,7 +48,6 @@ const Retornos = () => {
                       </p>
                     </div>
 
-                    {/* Contatos */}
                     <div className="flex gap-6 mb-3">
                       <div className="flex items-center gap-2 text-ice-gray text-sm">
                         <Phone className="w-4 h-4" />
@@ -63,13 +59,11 @@ const Retornos = () => {
                       </div>
                     </div>
 
-                    {/* Observações */}
                     <p className="text-ice-gray font-inter text-sm leading-relaxed">
                       {client.observations}
                     </p>
                   </div>
 
-                  {/* Data e contador */}
                   <div className="ml-6 text-right">
                     <div className="flex items-center gap-2 mb-2">
                       <Calendar className={`w-5 h-5 ${urgencyColor}`} />
@@ -89,13 +83,12 @@ const Retornos = () => {
                     </p>
                     {daysUntil <= 3 && daysUntil >= 0 && (
                       <p className="text-neon-red font-inter text-xs mt-1 animate-pulse">
-                        ⚠️ URGENTE
+                        URGENTE
                       </p>
                     )}
                   </div>
                 </div>
 
-                {/* Histórico */}
                 <div className="mt-4 pt-4 border-t border-charcoal-gray flex justify-between items-center">
                   <span className="text-ice-gray font-inter text-sm">
                     Última visita: {client.lastVisit}

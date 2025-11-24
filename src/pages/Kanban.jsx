@@ -1,11 +1,15 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { mockClients, statusColors } from '../data/mockData';
 import Header from '../components/Header';
 import { Star, Phone } from 'lucide-react';
 
-const Kanban = () => {
-  const [clients, setClients] = useState(mockClients);
+const Kanban = ({ clients = mockClients, onStatusChange }) => {
+  const [localClients, setLocalClients] = useState(clients);
+
+  useEffect(() => {
+    setLocalClients(clients);
+  }, [clients]);
 
   const columns = {
     agendado: { title: 'Agendado', status: 'agendado', icon: '🟦' },
@@ -15,7 +19,7 @@ const Kanban = () => {
   };
 
   const getClientsByStatus = (status) => {
-    return clients.filter(client => client.status === status);
+    return localClients.filter(client => client.status === status);
   };
 
   const onDragEnd = (result) => {
@@ -25,15 +29,16 @@ const Kanban = () => {
     if (source.droppableId === destination.droppableId) return;
 
     const newStatus = destination.droppableId;
-    const clientId = parseInt(draggableId);
+    const clientId = draggableId;
 
-    setClients(prevClients =>
-      prevClients.map(client =>
-        client.id === clientId
-          ? { ...client, status: newStatus }
-          : client
+    setLocalClients(prev =>
+      prev.map((client) =>
+        client.id === clientId ? { ...client, status: newStatus } : client
       )
     );
+    if (onStatusChange) {
+      onStatusChange(clientId, newStatus);
+    }
   };
 
   return (
